@@ -1,11 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS-Selectors</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS-Selectors</title>
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="global.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header>
+        <div class="logo">
+          <plate>
+            <apple></apple>
+          </plate>
+        </div>
+        RSS CSS Selectors
+      </header>
+      <main>
+        <h2 class="order">Select the plates</h2>
+        <button class="hint-button">Help, I'm stuck!</button>
+        <article class="hint">
+          <h3 class="hint-header">No worries, you've got this!</h3>
+          <p>
+            You're about to learn CSS Selectors! Selectors are how you pick
+            which element to apply styles to.
+          </p>
+          <h4>Exhibit 1 - A CSS Rule</h4>
+          <pre>
+p {
+  margin-bottom: 12px;
+}
+</pre
+          >
+          <p>
+            Here, the "p" is the selector (selects all &lt;p&gt; elements) and
+            applies the margin-bottom style.
+          </p>
+          <p>
+            To play, type in a CSS selector in the editor below to select the
+            correct items on the table.If you get it right, you'll advance to
+            the next level.
+          </p>
+          <p>Hover over the items on the table to see their HTML markup.</p>
+          <p>Get help with selectors on the right! →</p>
+          <button class="hint-button">Ok, got it!</button>
+        </article>
+        <!-- -------------------------------------------------------------------------------------------- -->
+        <section class="game">
+          <div class="table">
+            <plate><apple></apple></plate>
+            <plate></plate>
+          </div>
+          <div class="tableedge">
+            <div class="tabletop-edge"></div>
+            <div class="tableleg-l"></div>
+            <div class="tableleg-r"></div>
+          </div>
+        </section>
+        <section class="editors">
+          <div class="editor csscode">
+            <div class="editor-header">
+              <span>CSS Editor</span>
+              <span>style.css</span>
+            </div>
+            <div class="editor-body">
+              <div class="editor-line-numbers">
+                1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10<br />11<br />12<br />13<br />14<br />15<br />16<br />17<br />18<br />19<br />20
+              </div>
+              <div class="editor-code">
+                <div class="input-container">
+                 <input class="input-strobe" type="text" placeholder="Type in a CSS selector">
+                 <button class="enter-button">enter</button>
+                </div>
+                {<br>
+                &nbsp;&nbsp;/* Styles would go here. */<br>
+                }<br><br>
+                <div class="codehint">
+                  /*<br>
+                  Type a number to skip to a level.<br>
+                  Ex → "5" for level 5<br>
+                  */
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="editor htmlcode">
+            <div class="editor-header">
+              <span>HTML Viewer</span>
+              <span>table.html</span>
+            </div>
+            <div class="editor-body">
+              <div class="editor-line-numbers">
+                1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10<br />11<br />12<br />13<br />14<br />15<br />16<br />17<br />18<br />19<br />20
+              </div>
+              <div class="editor-code">
+                  &lt;div class="table"&gt;&lt;/div&gt;<br>
+                  &nbsp;&nbsp;&lt;plate /&gt;<br> 
+                  &nbsp;&nbsp;&lt;plate /&gt;<br>
+                  &lt;/div&gt;
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <aside>Side panel</aside>
+      <footer>Footer</footer>
+    </div>
+  </body>
 </html>
