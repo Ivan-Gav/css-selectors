@@ -106,8 +106,9 @@ const parseTagName = (element: HTMLElement):string => {
  if (element.id) {
   elementString += ` id="${element.id}"`;
  }
- if (element.className) {
-  elementString += ` class="${element.className}"`;
+ if ((element.className) && (element.className !== 'strobe')) {
+  const classes = element.className.replace('strobe', '').trim() 
+  elementString += ` class="${classes}"`;
  }
  if ((element.hasAttribute('for'))) {
   elementString += ` for="${element.getAttribute('for')}"`;
@@ -160,9 +161,15 @@ const handleHover = ():void => {
   } )
 }
 
+const applyStrobe = (selector: string):void => {
+  const elements = document.querySelectorAll(`.table ${selector}`);
+  elements?.forEach(element => element.classList.add('strobe'));
+}
+
 
 
 renderTable(l1);
 renderViewer(l1);
 wrapPseudoCode(l1.htmlCode);
 handleHover()
+applyStrobe(l1.selector);
