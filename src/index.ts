@@ -44,21 +44,17 @@ const renderTable = (lvl: Game):void => {
   let id = 0;
   const numberedCodeArr = codeArr.map(tag => {
     if (!(/^<\//).test(tag)) {
-    console.log(`${tag} is an opening tag!`)  
     const numberedTag = tag.replace('>', ` data-id="${id}">`);
     id++;
     return numberedTag;
     }
     return tag
   });
-  console.log(numberedCodeArr);
   if (table) {
     table.innerHTML = '';
     table.innerHTML = numberedCodeArr.join(' \n');
   }
 };
-
-// const br = (): HTMLBRElement => document.createElement("br");
 
 const renderViewer = (lvl: Game):void => {
   const viewer = document.querySelector('.viewer-code');
@@ -66,7 +62,6 @@ const renderViewer = (lvl: Game):void => {
     viewer.innerHTML = '';
     viewer.append(wrapPseudoCode(lvl.htmlCode));
   }
-  console.log(viewer);
 };
 
 const getTagsArr = (code: string): string[] => {
@@ -85,7 +80,7 @@ const wrapPseudoCode = (code: string): HTMLDivElement => {
  let id = 0;
  nodeArr.forEach((node) => {
   if (!(/^<\//).test(node)) {
-    template += `<div data-tagid="${id}">`;
+    template += `<div data-id="${id}">`;
     id++;
     template += `${indent}${unTag(node)}<br>`;
     indent += '&nbsp;&nbsp;';
@@ -104,6 +99,70 @@ const wrapPseudoCode = (code: string): HTMLDivElement => {
  return output;
 }
 
+const parseTagName = (element: HTMLElement):string => {
+ let elementString =`<`;
+ const tag = element.tagName.toLowerCase();
+ elementString += tag;
+ if (element.id) {
+  elementString += ` id="${element.id}"`;
+ }
+ if (element.className) {
+  elementString += ` class="${element.className}"`;
+ }
+ if ((element.hasAttribute('for'))) {
+  elementString += ` for="${element.getAttribute('for')}"`;
+ }
+ elementString += `></${tag}>`;
+ return elementString;
+}
+
+const renderTooltip = (element: HTMLElement):void => {
+  
+  const text = parseTagName(element);
+  const top = element.getBoundingClientRect().y;
+  const left = element.getBoundingClientRect().x;
+  const width = element.getBoundingClientRect().width;
+  
+  if(!document.querySelector('.tooltip')) {
+    const tooltip: HTMLElement = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.textContent = text;
+    document.body.append(tooltip);
+    tooltip.style.top = (top - 70) + 'px';
+    tooltip.style.left = (left + width / 2) + 'px';
+  }
+   
+
+}
+
+const hideTooltip = ():void => {
+  const tooltip = document.querySelector('.tooltip');
+  if (tooltip) tooltip.remove();
+}
+
+const handleHover = ():void => {
+  document.addEventListener('mouseover', (e)=> {
+    if ((e.target) && ((e.target as HTMLElement).dataset.id)) {
+      const targ = e.target as HTMLElement;
+      const id = targ.dataset.id;
+      const item = document.querySelector(`.table [data-id="${id}"]`);
+      const code = document.querySelector(`.viewer-code [data-id="${id}"]`);
+      if (item) renderTooltip(item as HTMLElement);
+      item?.classList.add('highlighted');
+      code?.classList.add('highlighted');
+         
+      targ.addEventListener('mouseout', () => {
+        hideTooltip();
+        item?.classList.remove('highlighted');
+        code?.classList.remove('highlighted');
+      })
+    }
+  } )
+}
+
+
+
 renderTable(l1);
 renderViewer(l1);
 wrapPseudoCode(l1.htmlCode);
+handleHover()
