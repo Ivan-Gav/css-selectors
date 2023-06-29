@@ -11,25 +11,19 @@ hint.build();
 import Game from "./entities/levels/level";
 
 const l1: Game = {
-  header : "Select the pickle on the fancy plate",
-  selector : "#fancy pickle",
-  syntax: "#id&nbsp;&nbsp;A",
-  htmlCode : `
-  <bento>
-  <orange/>
-  </bento>
-  <plate id="fancy">
-    <pickle/>
-  </plate>
-  <plate>
-    <pickle/>
-  </plate>
+  header : "Select the plates",
+  selector : "plate",
+  syntax : "A",
+  htmlCode:` 
+  <plate/>
+  <plate/>
   `,
-  helpTitle: "Descendant Combinator",
-  helpSubTitle: "Combine the Descendant & ID Selectors",
-  description : 'You can combine any selector with the descendent selector.',
+  helpTitle : "Type Selector",
+  helpSubTitle : "Select elements by their type",
+  description : "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <strong>&lt;div&gt;</strong>, <strong>&lt;p&gt;</strong> and <strong>&lt;ul&gt;</strong> are all different element types.",
   examples : [
-    '<strong>#cool&nbsp;span</strong> selects all <strong>&lt;span&gt;</strong> elements that are inside of elements with <strong>id="cool"</strong>'
+    '<strong>div</strong> selects all <strong>&lt;div&gt;</strong> elements.',
+    '<strong>p</strong> selects all <strong>&lt;p&gt;</strong> elements.',
   ]
 }
 
@@ -132,8 +126,6 @@ const renderTooltip = (element: HTMLElement):void => {
     tooltip.style.top = (top - 70) + 'px';
     tooltip.style.left = (left + width / 2) + 'px';
   }
-   
-
 }
 
 const hideTooltip = ():void => {
@@ -166,10 +158,87 @@ const applyStrobe = (selector: string):void => {
   elements?.forEach(element => element.classList.add('strobe'));
 }
 
+const changeInputView = ():void => {
+  const input: HTMLInputElement | null = document.querySelector("#input");
+  input?.addEventListener('input', (() => {
+    if (input.value) {
+      input.classList.remove('input-strobe');
+    } else {
+      input.classList.add('input-strobe');
+    }
+  }))
+}
 
+const handleInputValue = (): void => {
+  const input: HTMLInputElement | null = document.querySelector("#input");
+  const enter: HTMLInputElement | null = document.querySelector(".enter-button");
+  
+  const handler = (): void => {
+    let selector = input?.value;
+    if (selector) {
+      selector = selector.trim();
+      handleAnswer(l1.selector, selector);
+    } else {
+      shakeEditor();
+    }
+  };
+  input?.addEventListener('change', handler);
+  input?.addEventListener('keyup', (e) => {
+    if (e.code === 'Enter') handler();
+  });
+  enter?.addEventListener('click', handler);
+};
+
+const shake = (element: Element): void => {
+  let strobe = false;
+  if (element.classList.contains('strobe')) {
+    element.classList.remove('strobe');
+    strobe = true;
+  }
+  element.classList.remove('shake');
+  element.classList.add('shake');
+  setTimeout(() => {
+    element.classList.remove('shake')
+    if (strobe) element.classList.add('strobe');
+  }, 500);
+}
+
+const shakeEditor = (): void => {
+  const editors = document.querySelector('.editors');
+  if (editors) shake(editors);
+}
+
+const isCorrect = (selector: string, answer: string): boolean => {
+  const table = document.querySelector('.table');
+  const selection = table?.querySelectorAll(selector);
+  const answers = table?.querySelectorAll(answer);
+  if (!answers || !selection 
+    || (answers.length !== selection.length)) return false;
+  return Array.from(answers).every((node, index) => node === selection[index]);
+}
+
+const handleAnswer = (selector: string, answer: string): void => {
+  console.log(isCorrect(selector, answer))
+  if (!isCorrect(selector, answer)) {
+    const table = document.querySelector('.table');
+    const answers = table?.querySelectorAll(answer);
+    console.log(answers)
+    if (answers && answers.length) {
+      answers.forEach(element => shake(element));
+    } else {
+      console.log(`you've selected nothing, dude!`)
+      shakeEditor();
+    }
+  } else {
+    console.log('Right!!!')
+  }
+}
 
 renderTable(l1);
 renderViewer(l1);
 wrapPseudoCode(l1.htmlCode);
 handleHover()
 applyStrobe(l1.selector);
+changeInputView();
+handleInputValue()
+
