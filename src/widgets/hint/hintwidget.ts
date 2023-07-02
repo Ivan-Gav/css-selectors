@@ -33,10 +33,10 @@ export default class HintWidget extends Hint {
     super(hintTitle, hintText);
   }
 
-  public build(): void {
+  public build(): DocumentFragment {
     const hint = this.getHint();
 
-    const openHintCallback = (e?: Event): void => {
+    const openHintCallback = (e?: Event): void=> {
       if (e && e.target) {
         const target = e.target as HTMLElement;
         target.classList.add("hidden");
@@ -49,10 +49,13 @@ export default class HintWidget extends Hint {
       "hint-button",
       openHintCallback
     ).getButton();
-    const order = document.querySelector(".order");
-    if (order) {
-      order.after(help);
-      help.after(hint);
-    }
+    // const order = document.querySelector(".order");
+    // if (order) {
+    //   order.after(help);
+    //   help.after(hint);
+    // }
+    const output = new DocumentFragment;
+    output.append(help, hint);
+    return output;  
   }
 }
