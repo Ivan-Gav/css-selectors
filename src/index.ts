@@ -32,7 +32,9 @@ const handler = (e:Event):void => {
   document.querySelector('main')?.remove();
   document.querySelector('aside')?.remove();
   document.removeEventListener('changeLevel', handler);
-  if (e instanceof CustomEvent) lvlCntrl.next(e.detail.win);
+  if (e instanceof CustomEvent) {
+    lvlCntrl.next(e.detail.win, e.detail.lvl);
+  }
   render();
 }
 

@@ -19,7 +19,6 @@ const aside = (currentLevel: Game, currentLevelNr: number, completedLevels: Set<
 
   const levelList = new LevelsListPanel;
   const listPan = levelList.fillList(completedLevels, currentLevelNr)
-  console.log(listPan)
   output.append(listPan);
 
   const burger = output.querySelector(".burger");

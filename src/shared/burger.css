@@ -102,6 +102,10 @@
   padding: 0.5rem 2rem;
 }
 
+.levels-list div:hover {
+  background-color: var(--bg-color-1);
+}
+
 .levels-list div.current {
   background-color: var(--bg-color-0);
   color: var(--text-color-1);

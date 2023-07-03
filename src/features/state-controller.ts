@@ -36,9 +36,11 @@ export default class StateController {
     return this.completedLevels.has(+lvl);
   }
 
-  public next(win: boolean):void {
+  public next(win: boolean, lvl?: number):void {
       if (win) this.completeLevel(this.currentLevel);
-      if (this.currentLevel < this.levelsLength - 1) {
+      if (lvl !== undefined) {
+        this.currentLevel = lvl;
+      } else if (this.currentLevel < this.levelsLength - 1) {
         this.currentLevel += 1
       } else {
         console.log ('win!') //????
