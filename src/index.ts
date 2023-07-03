@@ -37,7 +37,7 @@ const handler = (e:Event):void => {
   }
   render();
 }
-document.addEventListener('resetProgress', () => lvlCntrl.completedLevels.clear());
+document.addEventListener('resetProgress', () => lvlCntrl.resetProgress());
 document.addEventListener('changeLevel', handler);
 }
 
