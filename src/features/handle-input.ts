@@ -19,22 +19,23 @@ export default class InputHandler {
         this.shakeEditor();
       }
     };
-    input?.addEventListener("change", handler);
+    // input?.addEventListener("change", handler);
     input?.addEventListener("keyup", (e) => {
       if (e.code === "Enter") handler();
     });
     enter?.addEventListener("click", handler);
   }
 
-  public changeInputView ():void {
+  public changeInputView(): void {
     const input: HTMLInputElement | null = document.querySelector("#input");
-    input?.addEventListener('input', (() => {
+    input?.focus();
+    input?.addEventListener("input", () => {
       if (input.value) {
-        input.classList.remove('input-strobe');
+        input.classList.remove("input-strobe");
       } else {
-        input.classList.add('input-strobe');
+        input.classList.add("input-strobe");
       }
-    }))
+    });
   }
 
   private shake(element: Element): void {
@@ -57,8 +58,7 @@ export default class InputHandler {
   }
 
   private isCorrect(selector: string, answer: string): boolean {
-    if (!(/^\D.*/i).test(answer)) {
-      console.log('digit!');
+    if (!/^\D.*/i.test(answer)) {
       return false;
     }
     const table = document.querySelector(".table");
@@ -72,18 +72,25 @@ export default class InputHandler {
   }
 
   private handleAnswer(selector: string, answer: string): void {
-    if (!answer || !(/^\D.*/i).test(answer)) {
-        this.shakeEditor();
+    const table = document.querySelector(".table");
+    if (!answer || !/^\D.*/i.test(answer)) {
+      this.shakeEditor();
     } else if (!this.isCorrect(selector, answer)) {
-      const table = document.querySelector(".table");
       const answers = table?.querySelectorAll(answer);
       if (answers && answers.length) {
         answers.forEach((element) => this.shake(element));
       } else {
         this.shakeEditor();
       }
-    } else  {
-      console.log("Right!!!");
+    } else {
+      const answers = table?.querySelectorAll(answer);
+      answers?.forEach((element) => element.classList.add("takeoff"));
+      if (answers && answers[0] instanceof HTMLElement) {
+        answers[0].onanimationend = (): void => {
+          console.log("dispatch Event!");
+          document.dispatchEvent(new CustomEvent("changeLevel", {detail: {win: true}}));
+        };
+      }
     }
   }
 }

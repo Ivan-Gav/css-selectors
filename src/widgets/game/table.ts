@@ -16,8 +16,11 @@ export default class Table extends PageElement {
     const dishes = new Code(codeString).dishUp();
     this.setContent(dishes);
     const table = this.build();
-    const elements = table.querySelectorAll(`${selector}`);
-    elements?.forEach((element) => element.classList.add("strobe"));
+    const elements = table.querySelectorAll(selector);
+    elements?.forEach((element) => {
+      element.classList.add("strobe"); 
+     });
+
     const hoverHandler = new HoverHandler(table);
     hoverHandler.handleHover();
     return table;

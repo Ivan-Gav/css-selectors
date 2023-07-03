@@ -59,7 +59,6 @@ export default class PageElement {
           this.content = this.content?.replace(`{ ${id} }`, insert);
         } else if (content instanceof HTMLElement) {
           insert = content.outerHTML
-          console.log(insert)
           this.content = this.content?.replace(`{ ${id} }`, insert);
         }
 
