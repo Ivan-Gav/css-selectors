@@ -9,6 +9,7 @@
   --text-color-1: rgba(255, 255, 255, 0.6);
   --text-color-2: #444;
   --text-color-3: rgba(27,111,155,.1);
+  --text-color-4: rgba(255, 255, 255, 0.8);
   --size-1: 100px;
 }
 
@@ -97,18 +98,45 @@ aside {
 }
 
 footer {
-  background-color: var(--bg-color-1);
+  background-color: var(--bg-color-0);
   grid-area: foot;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-color)
 }
+
+footer p {
+  margin: 0;
+  padding: 1rem;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--text-color-1);
+}
+
+footer a:hover {
+  color: var(--text-color-4);
+}
+
+footer img {
+  max-width: 15rem;
+  filter: invert(1); 
+}
+
+
 
 .page-wrapper {
   display: grid;
-  grid-template-rows: 6rem 1fr 9rem;
+  grid-template-rows: 6rem 1fr auto;
   grid-template-columns: auto auto auto 40rem;
   grid-template-areas:
     "head head head side"
     "main main main side"
-    "foot foot foot foot";
+    "foot foot foot side";
   min-height: 100%;
 }
 
