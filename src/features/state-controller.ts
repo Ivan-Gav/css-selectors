@@ -16,20 +16,23 @@ export default class StateController {
   }
 
   private checkProgress(): Set<number> {
-    const saved = localStorage.getItem('completedLevels')
+    const saved = localStorage.getItem('completedLevels');
     if (saved) {
-      return JSON.parse(saved)
+      return new Set ([...JSON.parse(saved)]);
     }
     return new Set();
   }
 
   public completeLevel(lvl: number | string):void {
     this.completedLevels.add(+lvl);
+    localStorage.setItem('completedLevels', JSON.stringify([...this.completedLevels]));
   }
 
   public resetProgress():void {
     this.completedLevels.clear();
     this.currentLevel = 0;
+    localStorage.removeItem('completedLevels');
+    localStorage.removeItem('currentLevel');
   }
 
   public isCompleted(lvl: number | string):boolean {
@@ -40,8 +43,10 @@ export default class StateController {
       if (win) this.completeLevel(this.currentLevel);
       if (lvl !== undefined) {
         this.currentLevel = lvl;
+        localStorage.setItem('currentLevel', this.currentLevel.toString());
       } else if (this.currentLevel < this.levelsLength - 1) {
         this.currentLevel += 1
+        localStorage.setItem('currentLevel', this.currentLevel.toString());
       } else {
         console.log ('win!') //????
       }
