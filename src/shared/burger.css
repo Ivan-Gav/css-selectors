@@ -1,0 +1,134 @@
+.burger {
+  display: flex;
+  position: relative;
+  z-index: 100;
+  align-items: center;
+  justify-content: flex-end;
+  width: 2.6rem;
+  height: 2.2rem;
+}
+
+.burger span {
+  height: 0.3rem;
+  width: 100%;
+  transform: scale(1);
+  background-color: #777;
+  transition: all 0.3s ease 0s;
+}
+
+.burger:hover span {
+  background-color: #aaa;
+}
+
+.burger::before,
+.burger::after {
+  content: "";
+  position: absolute;
+  height: 0.3rem;
+  width: 100%;
+  background-color: #777;
+  transition: all 0.3s ease 0s;
+}
+
+.burger::before {
+  top: 0;
+}
+
+.burger::after {
+  bottom: 0;
+}
+
+.burger:hover:before,
+.burger:hover:after {
+  background-color: #aaa;
+}
+
+.burger.active span {
+  transform: scale(0);
+}
+
+.burger.active::before {
+  top: 50%;
+  transform: rotate(-45deg) translate(0, -50%);
+}
+
+.burger.active::after {
+  bottom: 50%;
+  transform: rotate(45deg) translate(0, 50%);
+}
+
+.levels-list-pan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: fixed;
+  height: 100%;
+  width: 40rem;
+  top: 0;
+  bottom: 0;
+  right: -60rem;
+  z-index: 50;
+  overflow-y: auto;
+  background-color: var(--bg-color-2);
+  transition: right ease-in 0.3s;
+}
+
+.open {
+  right: 0;
+  transition: right ease-in 0.3s;
+}
+
+.levels-list {
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.levels-list-pan .side-header {
+  flex-grow: unset;
+  padding: 2rem;
+}
+
+.levels-list {
+  width: 100%;
+  padding: 0;
+  font-family: "Exo 2", "Helvetica", sans-serif;
+  font-weight: 300;
+  font-size: 1.6rem;
+  color: var(--text-color);
+}
+
+.levels-list div {
+  width: 100%;
+  padding: 0.5rem 2rem;
+}
+
+.levels-list div.current {
+  background-color: var(--bg-color-0);
+  color: var(--text-color-1);
+  font-weight: 600;
+
+}
+
+.checkmark {
+  display: inline-flex;
+  justify-content: flex-start;
+  width: 3rem;
+  color: var(--text-color);
+}
+
+.checkmark.completed {
+  color: #4cbb4a;
+}
+
+.level-number {
+  display: inline-flex;
+  justify-content: flex-start;
+  width: 3rem;
+  font-weight: 400;
+  color: var(--text-color-2);
+}
+
+.current .level-number {
+  color: var(--text-color);
+}
+

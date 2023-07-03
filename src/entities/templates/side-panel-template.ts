@@ -10,7 +10,7 @@ const sidePanelTemplate =
   <span id="nav-right"><i class="fa-solid fa-chevron-right"></i></span>
 </div>
 <div class="burger">
-  <i class="fa-solid fa-bars"></i>
+  <span></span>
 </div>
 </div>
 <div class="progress">

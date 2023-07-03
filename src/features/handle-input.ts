@@ -87,7 +87,6 @@ export default class InputHandler {
       answers?.forEach((element) => element.classList.add("takeoff"));
       if (answers && answers[0] instanceof HTMLElement) {
         answers[0].onanimationend = (): void => {
-          console.log("dispatch Event!");
           document.dispatchEvent(new CustomEvent("changeLevel", {detail: {win: true}}));
         };
       }

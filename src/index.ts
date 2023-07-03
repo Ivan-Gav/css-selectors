@@ -1,5 +1,6 @@
 import "./normalize.css";
 import "./global.css";
+import "./shared/burger.css";
 
 import levels from "./entities/levels/levels";
 import StateController from "./features/state-controller";
@@ -17,7 +18,7 @@ const render = ():void =>
 const currentLevel = lvlCntrl.currentLevel;
 
 const header = document.querySelector("header");
-header?.after(mainPage(levels[currentLevel]), aside(levels[currentLevel], currentLevel));
+header?.after(mainPage(levels[currentLevel]), aside(levels[currentLevel], currentLevel, lvlCntrl.completedLevels));
 
 const tableHoverHandler = new HoverHandler(document);
 tableHoverHandler.handleHover();

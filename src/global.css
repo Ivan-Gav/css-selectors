@@ -127,6 +127,7 @@ aside strong {
 .side-headline {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1.5rem;
   font-size: 2.5rem;
   font-weight: 400;
@@ -146,8 +147,7 @@ aside strong {
   color: #4cbb4a;
 }
 
-.level-nav span:hover,
-.burger:hover {
+.level-nav span:hover {
   color: #AAA;
 }
 
