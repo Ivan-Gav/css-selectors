@@ -553,8 +553,10 @@ plate orange:nth-last-child(4)
 /* ------------------main frame top------------------ */
 
 .order {
-  font-size: 4.5rem;
+  font-size: 3rem;
   font-weight: 400;
+  margin: 0;
+  padding: 1rem;
 }
 
 /* --------------end of main frame top-------------- */
@@ -762,3 +764,38 @@ input:focus {
 
 
 /* ----------------end of editor section---------------- */
+
+
+@media (max-width: 1200px) {
+
+  header {
+    display: none;
+  }
+
+  .page-wrapper {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto auto auto;
+    grid-template-areas:
+      "side side side"
+      "main main main"
+      "foot foot foot";
+    min-height: 100%;
+  }
+
+  .side-headline {
+    padding: 0;
+  }
+
+  .progress,
+  .progress-bar,
+  .help-title,
+  .help-sub-title,
+  .syntax,
+  .description,
+  .example,
+  .examples-title,
+  .example {
+    display: none;
+  }
+}
